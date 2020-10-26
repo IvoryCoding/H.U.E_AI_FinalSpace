@@ -190,9 +190,8 @@ def loadHUE():
                     userName = statement
 
                     file = open("UserInformation", "r+")
-                    file.close()
-
                     print(file)
+                    file.close()
 
                     speak('Hello ' + userName + '. Can I help you with anything?')
                     continue
