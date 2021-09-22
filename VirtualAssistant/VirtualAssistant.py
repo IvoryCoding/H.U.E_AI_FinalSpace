@@ -67,13 +67,28 @@ def takeCommand():
 def loadHUE():
     userName = "default"
 
+    file = open("UserInformation.txt", "r")
+    lines = file.readlines()
+    file.close()
+
+    count = 0
+
+    for line in lines:
+        count=+ 1
+
+        if count==1:
+            readLine = "{}".format(line.strip())
+            readLine = readLine.replace("name:", "")
+            print(readLine)
+            userName = readLine
+
     if voiceInt == 0:
         name = "hue"
     else:
         name = "rue"
 
-    print("Booting " + name + " up")
-    speak("Booting " + name + " up")
+    print("Hey " + userName + ". Just booting  up")
+    speak("Hey " + userName + ". Just booting  up")
 
     if userName == "default":
         speak("You can change your name by saying, My name is, and then your name.")
@@ -189,8 +204,8 @@ def loadHUE():
                     statement = statement.replace('my name is', '')
                     userName = statement
 
-                    file = open("UserInformation", "r+")
-                    print(file)
+                    file = open("UserInformation.txt", "w")
+                    file.write("name: " + userName)
                     file.close()
 
                     speak('Hello ' + userName + '. Can I help you with anything?')
@@ -207,21 +222,31 @@ def loadHUE():
                     continue
 
                 if 'scan face' in statement:
+                    # Step 1: Find the face
+
                     speak('Currently in development. Anything else I can help you with?')
                     print('Currently in development. Anything else I can help you with?')
                     continue
 
-                if 'play playlist' in statement:
-                    statement = statement.replace('play playlist', '')
+                ######################## Movie Quotes ########################
+                if 'then I am a raging sack of walnuts' == statement or "then I'm a raging sack of walnuts" == statement or 'then I am a raging sack of walnuts' == statement:
+                    print('This will add to your sentence garry.')
+                    speak('This will add to your sentence garry.')
 
-                    SpotifyOAuth.client_id = 'f2f549ec1c0b44fb9135033107ed1a9c'
-                    SpotifyOAuth.client_secret = '70dba96a0b6040158d5852e31bc6509e'
-                    SpotifyOAuth.redirect_uri = 'https://google.com'
+                if 'get off my cheeks hugh' == statement or 'get off my cheeks hue' == statement or 'get off my cheeks you' == statement or 'get off my cheeks que' == statement:
+                    print('get off my cheeks garry. Anything else?')
+                    speak('get off my cheeks garry. Anything else?')
 
-                    scope = 'user-library-read'
-
-                    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
-                    sp.search(q=statement, type='playlist')
+                # List
+                # 'I am questioning your use of have, we are very deep in have'
+                # 'Tough Titty Whompus'
+                # 'Well, twist my nipples hard'
+                # 'Sorry Guadalupe'
+                # 'Oh my crap'
+                # 'Oh my double crap'
+                # 'You're a good guy Garry'
+                # 'I hate you kevin'
+                # 'Right on the downstairs mustache'
 
 ######################## H.U.E GUI ########################
 def loadGUI():
@@ -278,4 +303,5 @@ def loadGUI():
     windowCommands.close()
 
 ########################### H.U.E Run ########################
-threading.Thread(target= loadGUI()).start()
+#threading.Thread(target= loadGUI()).start()
+threading.Thread(target= loadHUE()).start()
